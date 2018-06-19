@@ -11,9 +11,8 @@ footer {
 /* navbar */
 .navbar {
     background-color: #fff;
-    color: gray;
 }
-.navbar-item {
+.navbar-header img {
     margin-top: 5px;
     height: 40px;
 }

@@ -5,7 +5,9 @@
         <div class="cover-inner">
             <div class="cover-contents">
                 <h1>Welcome to Dokushoka</h1>
-                <a href="" class="btn btn-outline-success btn-lg">start</a>
+                @if (!Auth::check())
+                <a href="{{ route('signup.get') }}" class="btn btn-default btn-lg">start</a>
+                @endif
             </div>
         </div>
     </div>
