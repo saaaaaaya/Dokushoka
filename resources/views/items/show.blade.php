@@ -2,32 +2,49 @@
 
 @section('content')
 <div id="detail">
-
-
-
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12 col-md-offset-3">
-            <div class="item">
-                <div class="panel panel-default">
-                    <div class="panel-heading text-center">
-                        <img src="{{ $item->image_url }}" alt="">
-                    </div>
-                    <div class="panel-body">
-                        <p class="item-title">{{ $item->name }}</p>
-                        <div class="buttons text-center">
-                            @if (Auth::check())
-                                @include('items.read_button', ['item' => $item])
-                                @include('items.want_button', ['item' => $item])
-                            @endif
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+     <div class=row>
+       <div class="main">
+         <img src="{{ $item->image_url }}" alt="Book image">
+             <div class="buttons">
+                @if (Auth::check())
+                    @include('items.read_button', ['item' => $item])
+                    @include('items.want_button', ['item' => $item])
+                @endif
+             </div>
+       </div>
+       
+       <div class="info offset-1 col-7">
+            <h1 class="item-title">{{ $item->title }}</h1>
+            <h3 class="item-author">{{ $item->author }}</h3>
+         <div class="card text-center">
+            <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">review</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Read users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#">Want users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="{{ $item->itemurl }}">link</a>
+              </li>
+            </ul>
             </div>
+              <div class="card-body">
+                <p class="card-text"><span><img src="/image/quote-left.jpg"></img></span>限りない喪失と再生を描く究極の恋愛小説!暗く重たい雨雲をくぐり抜け、飛行機がハンブルク空港に着陸すると、天井のスピーカーから小さな音でビートルズの『ノルウェイの森』が流れ出した。僕は1969年、もうすぐ20歳になろうとする秋のできごとを思い出し、激しく混乱し、動揺していた。限りない喪失と再生を描き新境地を拓いた長編小説。<span><img src="/image/quote-right.jpg"></img></span></p>
+                <a href="#" class="btn btn-primary">Favorite</a>
+              </div>
         </div>
+       </div>
+    </div>
+  </div>
+</div>       
 
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="read-users">
-                <div class="panel panel-default">
+        
                     <div class="panel-heading text-center">
                         Readしたユーザ
                     </div>
@@ -51,24 +68,5 @@
         </div>
     </div>
     
-    <div class="card text-center">
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+    
 @endsection

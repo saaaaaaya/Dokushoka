@@ -6,6 +6,7 @@ body {
 }
 footer {
     margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 /* navbar */
@@ -77,40 +78,22 @@ footer {
 .search {
     margin-bottom: 20px;
 }
-
 /* item */
-.card-group {
-    margin-left: 2em;
-    margin-right: 2em;
+#item .row {
+    margin-top:5vh;
 }
 
-.btn-group {
+#item .card-body {
+    background-color: #fff;
+}
+
+#item .card-title .item-title a {
+    color: black;
+}
+
+#item .btn-group {
     position: relative;
     vertical-align: middle;
-}
-
-::after, ::before {
-    box-sizing: border-box;
-}
-
-.card .mb-4 .box-shadow {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-}
-
-.card-body {
-    background-color: #fff;
-}
-
-.card-title .item-title a {
-    color: black;
 }
 
 /* users */
@@ -148,3 +131,6 @@ footer {
 }
 
 /* detail page */
+#detail .container {
+    margin-top: 20vh;
+}
