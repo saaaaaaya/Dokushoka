@@ -26,4 +26,101 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class)->withPivot('type')->withTimestamps();
+    }
+
+    public function read_items()
+    {
+        return $this->items()->where('type', 'read');
+    }
+
+    public function read($itemId)
+    {
+        // Is the user already "read"?
+        $exist = $this->is_reading($itemId);
+
+        if ($exist) {
+            // do nothing
+            return false;
+        } else {
+            // do "read"
+            $this->items()->attach($itemId, ['type' => 'read']);
+            return true;
+        }
+    }
+
+    public function dont_read($itemId)
+    {
+        // Is the user already "read"?
+        $exist = $this->is_reading($itemId);
+
+        if ($exist) {
+            // remove "read"
+            \DB::delete("DELETE FROM item_user WHERE user_id = ? AND item_id = ? AND type = 'read'", [\Auth::user()->id, $itemId]);
+        } else {
+            // do nothing
+            return false;
+        }
+    }
+
+    public function is_reading($itemIdOrCode)
+    {
+        if (strlen($itemIdOrCode)<10) {
+            $item_id_exists = $this->read_items()->where('item_id', $itemIdOrCode)->exists();
+            return $item_id_exists;
+        } else {
+            $item_code_exists = $this->read_items()->where('isbn', $itemIdOrCode)->exists();
+            return $item_code_exists;
+        }
+    }
+    
+    public function want_items()
+    {
+        return $this->items()->where('type', 'want');
+    }
+    
+    public function want($itemId)
+    {
+        // Is the user already "want"?
+        $exist = $this->is_wanting($itemId);
+
+        if ($exist) {
+            // do nothing
+            return false;
+        } else {
+            // do "want"
+            $this->items()->attach($itemId, ['type' => 'want']);
+            return true;
+        }
+    }
+    
+    public function dont_want($itemId)
+    {
+        // Is the user already "want"?
+        $exist = $this->is_wanting($itemId);
+
+        if ($exist) {
+            // remove "want"
+            \DB::delete("DELETE FROM item_user WHERE user_id = ? AND item_id = ? AND type = 'want'", [\Auth::user()->id, $itemId]);
+        } else {
+            // do nothing
+            return false;
+        }
+    }
+    
+    public function is_wanting($itemIdOrCode)
+    {
+        if (strlen($itemIdOrCode)<10) {
+            $item_id_exists = $this->want_items()->where('item_id', $itemIdOrCode)->exists();
+            return $item_id_exists;
+        } else {
+            $item_code_exists = $this->want_items()->where('isbn', $itemIdOrCode)->exists();
+            return $item_code_exists;
+        }
+    }
+
 }

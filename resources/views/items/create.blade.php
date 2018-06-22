@@ -1,18 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="search">
-        <div class="row">
-            <div class="text-center">
+      <div id="search" class="form-row text-center">
                 {!! Form::open(['route' => 'items.create', 'method' => 'get', 'class' => 'form-inline']) !!}
-                    <div class="form-group">
-                        {!! Form::text('keyword', $keyword, ['class' => 'form-control input-lg', 'placeholder' => 'keyword', 'size' => 40]) !!}
+                    <div class="col">
+                        {!! Form::text('title', $title, ['class' => 'form-control input-lg', 'placeholder' => 'Title', 'size' => 40]) !!}
                     </div>
-                    {!! Form::submit('Search Books', ['class' => 'btn btn-success btn-lg']) !!}
+                    <div class="col">
+                        {!! Form::text('author', $author, ['class' => 'form-control input-lg', 'placeholder' => 'Author name', 'size' => 40]) !!}
+                    </div>
+                        {!! Form::submit('Search', ['class' => 'btn btn-info btn-lg btn-sm']) !!}
                 {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
-
+      </div>
     @include('items.items', ['items' => $items])
 @endsection

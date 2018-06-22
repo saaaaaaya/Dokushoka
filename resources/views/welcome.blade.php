@@ -6,7 +6,7 @@
             <div class="cover-contents">
                 <h1>Welcome to Dokushoka</h1>
                 @if (!Auth::check())
-                <a href="{{ route('signup.get') }}" class="btn btn-default btn-lg">start</a>
+                <a href="{{ route('signup.get') }}" class="btn btn-outline-light">start</a>
                 @endif
             </div>
         </div>
@@ -14,5 +14,8 @@
 @endsection
 
 @section('content')
-    テスト
+  @if (Auth::check())
+    @include('items.items')
+    {!! $items->render() !!}
+  @endif
 @endsection

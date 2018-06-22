@@ -10,14 +10,16 @@ class ItemsController extends Controller
 {
     public function create()
     {
-        $keyword = request()->keyword;
+        $title = request()->title;
+        $author = request()->author;
         $items = [];
-        if ($keyword) {
+        if ($title||$author) {
             $client = new \RakutenRws_Client();
             $client->setApplicationId(env('RAKUTEN_APPLICATION_ID'));
 
             $rws_response = $client->execute('BooksBookSearch', [
-                'keyword' => $keyword,
+                'title' => $title,
+                'author' => $author,
                 'imageFlag' => 1,
                 'hits' => 20,
             ]);
@@ -32,14 +34,28 @@ class ItemsController extends Controller
                 $item->isbn = $rws_item['Item']['isbn'];
                 $item->itemcaption = $rws_item['Item']['itemCaption'];
                 $item->itemurl = $rws_item['Item']['itemUrl'];
-                $item->image_url = str_replace('?_ex=128x128', '', $rws_item['Item']['mediumImageUrl']);
+                $item->image_url = str_replace('?_ex=120x120', '', $rws_item['Item']['mediumImageUrl']);
                 $items[] = $item;
             }
         }
 
         return view('items.create', [
-            'keyword' => $keyword,
+            'title' => $title,
+            'author' => $author,
             'items' => $items,
         ]);
     }
-}
+    
+     public function show($id)
+    {
+      $item = Item::find($id);
+      $read_users = $item->read_users;
+      $want_users = $item->want_users;
+
+      return view('items.show', [
+          'item' => $item,
+          'read_users' => $read_users,
+          'want_users' => $want_users,
+      ]);
+    }
+  }

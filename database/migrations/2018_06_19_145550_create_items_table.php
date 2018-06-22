@@ -20,6 +20,8 @@ class CreateItemsTable extends Migration
             $table->string('publisherName');
             $table->string('size');
             $table->string('isbn');
+            $table->string('itemUrl');
+            $table->string('image_url');
             $table->timestamps();
         });
     }

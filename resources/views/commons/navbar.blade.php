@@ -1,49 +1,51 @@
 <header>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-left" href="/"><img src="{{ secure_asset("images/logo.png") }}" alt="Monolist"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    @if (Auth::check())
-                        <li>
-                            <a href="{{ route('items.create') }}">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                Add books
-                              </a>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="gravatar">
-                                    <img src="{{ Gravatar::src(Auth::user()->email, 20) . '&d=mm' }}" alt="" class="img-circle">
-                                </span>
-                                {{ Auth::user()->name }}
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">My Page</a>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li>
-                                    <a href="{{ route('logout.get') }}">Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @else
-                        <li><a href="{{ route('signup.get') }}">Sign up</a></li>
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                    @endif
-                </ul>
-            </div>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand col-9" href="/"><img src="{{ secure_asset("image/logo.png") }}" alt="Dokushoka"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="nav justify-content-end">
+          @if (Auth::check())
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('items.create') }}">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Add books
+              </a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    Ranking
+                <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('ranking.read') }}">Read Ranking</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{{ route('ranking.want') }}">Want Ranking</a>
+              </div>
+            </li>
+                        
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="gravatar">
+              <img src="{{ Gravatar::src(Auth::user()->email, 20) . '&d=mm' }}" alt="" class="img-circle">
+              </span>
+              {{ Auth::user()->name }}
+              <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="{{ route('users.show', Auth::user()->id) }}">My Page</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ route('logout.get') }}">Log out</a>
+              </div>
+            </li>
+              @else
+                <li class="signup"><a href="{{ route('signup.get') }}">Sign up</a></li>
+                <li><a href="{{ route('login') }}">Log in</a></li>
+              @endif
+        </ul>
         </div>
     </nav>
 </header>
